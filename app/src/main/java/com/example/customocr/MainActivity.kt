@@ -8,7 +8,6 @@ import android.provider.MediaStore
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.example.ocrmodule.OCR
 
 class MainActivity : AppCompatActivity() {
@@ -41,10 +40,16 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_SELECTION && resultCode == RESULT_OK && data != null){
             val imageUri: Uri? = data.data
             if (imageUri != null) {
-                tv_result.text=OCR.getText(this,imageUri)
+                tv_result.text=OCR.getText(this,imageUri,tv_result)
             }
 
         }
+    }
+
+    fun goTo(resultText: String){
+        val intent = Intent(this,ResultActivity::class.java)
+        intent.putExtra("resultText",resultText)
+        startActivity(intent)
     }
 
 }
